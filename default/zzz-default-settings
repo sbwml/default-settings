@@ -132,6 +132,12 @@ sed -i "/deny all/d" /etc/nginx/restrict_locally
 /etc/init.d/nginx restart
 /etc/init.d/nginx enabled
 
+# aria2
+if [ `grep -c rpc-allow-origin-all "/etc/config/aria2"` -eq '0' ];then
+    uci add_list aria2.main.extra_settings='rpc-allow-origin-all=true'
+    uci commit aria2
+fi
+
 # docker mirror
 if [ `grep -c 163 "/etc/config/dockerd"` -eq '0' ];then
     uci add_list dockerd.globals.registry_mirrors='https://hub-mirror.c.163.com'
