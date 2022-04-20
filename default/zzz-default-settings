@@ -137,6 +137,10 @@ if [ `grep -c rpc-allow-origin-all "/etc/config/aria2"` -eq '0' ];then
     uci add_list aria2.main.extra_settings='rpc-allow-origin-all=true'
     uci commit aria2
 fi
+if [ `grep -c http-auth-challenge "/etc/config/aria2"` -eq '0' ];then
+    uci add_list aria2.main.extra_settings='http-auth-challenge=true'
+    uci commit aria2
+fi
 
 # docker mirror
 if [ `grep -c 163 "/etc/config/dockerd"` -eq '0' ];then
