@@ -148,10 +148,6 @@ if [ `grep -c 163 "/etc/config/dockerd"` -eq '0' ];then
     uci commit dockerd
 fi
 
-# firewall
-uci set firewall.@defaults[0].fullcone='1'
-uci commit firewall
-
 # upnp
 uci set upnpd.config.igdv1='1'
 uci set upnpd.config.enabled='1'
@@ -174,11 +170,6 @@ echo "log-facility=/dev/null" >> /etc/dnsmasq.conf
 uci set network.globals.packet_steering='1'
 uci commit network
 /etc/init.d/network restart
-
-# Flag packages
-opkg flag hold luci-app-firewall
-opkg flag hold firewall
-opkg flag hold dnsmasq-full
 
 # disable coremark
 sed -i '/coremark/d' /etc/crontabs/root
