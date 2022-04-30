@@ -45,7 +45,6 @@ uci add_list nginx._lan.listen='[::]:80 default_server'
 uci add_list nginx._lan.include='conf.d/*.locations'
 uci set nginx._lan.access_log='off; # logd openwrt'
 uci commit nginx
-/etc/init.d/nginx enabled
 /etc/init.d/nginx restart
 
 # aria2
