@@ -1053,16 +1053,10 @@ msgid "usually is lan"
 msgstr "通常为 lan"
 
 msgid "Filter IPv6 Records"
-msgstr "过滤 IPv6 记录"
+msgstr "禁用 IPv6 解析"
 
 msgid "Filter IPv6(AAAA) Records during DNS resolution"
-msgstr "在域名解析时，过滤 IPv6(AAAA) 记录"
-
-msgid "SFE flow offloading"
-msgstr "SFE 流量分载"
-
-msgid "SFE based offloading for Routing/NAT. Restart recommended."
-msgstr "基于 SFE 的 Routing/NAT 分载（开/关后建议重启设备）"
+msgstr "禁用 IPv6(AAAA) 解析记录"
 
 msgid "Enable FullCone NAT"
 msgstr "全锥形 NAT"
