@@ -34,103 +34,19 @@ uci commit system
 sed -i 's,downloads.openwrt.org,mirror.sjtu.edu.cn/openwrt,g' /etc/opkg/distfeeds.conf
 
 # nginx
-uci set nginx.global.uci_enable='false'
+uci del nginx._lan
+uci del nginx._redirect2ssl
+uci add nginx server
+uci rename nginx.@server[0]='_lan'
+uci set nginx._lan.server_name='_lan'
+uci add_list nginx._lan.listen='80 default_server'
+uci add_list nginx._lan.listen='[::]:80 default_server'
+#uci add_list nginx._lan.include='restrict_locally'
+uci add_list nginx._lan.include='conf.d/*.locations'
+uci set nginx._lan.access_log='off; # logd openwrt'
 uci commit nginx
-
-rm /etc/nginx/uci.conf
-cat >/etc/nginx/nginx.conf <<"EOF"
-# This file is re-created when Nginx starts.
-# Consider using UCI or creating files in /etc/nginx/conf.d/ for configuration.
-# Parsing UCI configuration is skipped if uci set nginx.global.uci_enable=false
-# For details see: https://openwrt.org/docs/guide-user/services/webserver/nginx
-
-worker_processes 4;
-
-user root;
-
-error_log /dev/null;
-
-events {
-  worker_connections 1024;
-}
-
-http {
-    access_log off;
-    server_names_hash_bucket_size 64;
-    #log_format openwrt
-    #    '$request_method $scheme://$host$request_uri => $status'
-    #    '(${body_bytes_sent}B in ${request_time}s) <- $http_referer';
-
-    include mime.types;
-    default_type application/octet-stream;
-    sendfile on;
-
-    client_max_body_size 4096M;
-    large_client_header_buffers 2 1k;
-    keepalive_timeout 600s;
-
-    gzip on;
-    gzip_comp_level 6;
-    gzip_min_length 1k;
-    gzip_types text/plain text/css text/xml text/javascript text/x-component application/json application/javascript application/x-javascript application/xml application/xhtml+xml application/rss+xml application/atom+xml application/x-font-ttf application/vnd.ms-fontobject image/svg+xml image/x-icon font/opentype;
-    brotli on;
-    brotli_types text/plain text/css text/xml text/javascript text/x-component application/json application/javascript application/x-javascript application/xml application/xhtml+xml application/rss+xml application/atom+xml application/x-font-ttf application/vnd.ms-fontobject image/svg+xml image/x-icon font/opentype;
-    brotli_static on;
-    brotli_comp_level 6;
-    brotli_buffers 16 10k;
-    brotli_window 512k;
-    brotli_min_length 20;
-
-    root /www;
-
-    server {
-      listen 80 default_server;
-      listen [::]:80 default_server;
-      server_name _lan;
-      include restrict_locally;
-      include conf.d/*.locations;
-      access_log off; # logd openwrt;
-    }
-
-    include conf.d/*.conf;
-}
-EOF
-
-cat >/etc/nginx/conf.d/luci.locations <<"EOF"
-location /cgi-bin/luci {
-		index  index.html;
-		include uwsgi_params;
-		uwsgi_param SERVER_ADDR $server_addr;
-		uwsgi_modifier1 9;
-		uwsgi_send_timeout 600;
-		uwsgi_connect_timeout 600;
-		uwsgi_read_timeout 600;
-		uwsgi_pass unix:////var/run/luci-webui.socket;
-}
-location ~ /cgi-bin/cgi-(backup|download|upload|exec) {
-		include uwsgi_params;
-		uwsgi_param SERVER_ADDR $server_addr;
-		uwsgi_modifier1 9;
-		uwsgi_send_timeout 600;
-		uwsgi_connect_timeout 600;
-		uwsgi_read_timeout 600;
-		uwsgi_pass unix:////var/run/luci-cgi_io.socket;
-}
-
-location /luci-static {
-		error_log stderr crit;
-}
-
-location /ubus {
-		ubus_interpreter;
-		ubus_script_timeout 600;
-		ubus_socket_path /var/run/ubus/ubus.sock;
-		ubus_parallel_req 2;
-}
-EOF
-sed -i "/deny all/d" /etc/nginx/restrict_locally
-/etc/init.d/nginx restart
 /etc/init.d/nginx enabled
+/etc/init.d/nginx restart
 
 # aria2
 if [ `grep -c rpc-allow-origin-all "/etc/config/aria2"` -eq '0' ];then
