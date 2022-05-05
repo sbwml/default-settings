@@ -34,6 +34,7 @@ uci commit system
 sed -i 's,downloads.openwrt.org,mirror.sjtu.edu.cn/openwrt,g' /etc/opkg/distfeeds.conf
 
 # nginx
+uci set nginx.global.uci_enable='true'
 uci del nginx._lan
 uci del nginx._redirect2ssl
 uci add nginx server
