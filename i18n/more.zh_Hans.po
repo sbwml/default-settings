@@ -1060,3 +1060,18 @@ msgstr "禁用 IPv6(AAAA) 解析记录"
 
 msgid "Enable FullCone NAT"
 msgstr "全锥形 NAT"
+
+# openwrt luci
+#: modules/luci-mod-status/htdocs/luci-static/resources/view/status/nftables.js:671
+msgid "Legacy rules detected"
+msgstr "检测到旧版规则"
+
+#: modules/luci-mod-status/htdocs/luci-static/resources/view/status/nftables.js:672
+msgid ""
+"There are legacy iptables rules present on the system. Mixing iptables and "
+"nftables rules is discouraged and may lead to incomplete traffic filtering."
+msgstr "系统上存在旧版 iptables 规则，不建议混合使用 iptables 和 nftables 规则，这可能会导致流量过滤不完整。"
+
+#: modules/luci-mod-status/htdocs/luci-static/resources/view/status/nftables.js:676
+msgid "Open iptables rules overview…"
+msgstr "打开 iptables 规则概览"
