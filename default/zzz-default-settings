@@ -50,16 +50,6 @@ uci set nginx._lan.access_log='off; # logd openwrt'
 uci commit nginx
 /etc/init.d/nginx restart
 
-# aria2
-if [ `grep -c rpc-allow-origin-all "/etc/config/aria2"` -eq '0' ];then
-    uci add_list aria2.main.extra_settings='rpc-allow-origin-all=true'
-    uci commit aria2
-fi
-if [ `grep -c http-auth-challenge "/etc/config/aria2"` -eq '0' ];then
-    uci add_list aria2.main.extra_settings='http-auth-challenge=true'
-    uci commit aria2
-fi
-
 # docker mirror
 if [ `grep -c 163 "/etc/config/dockerd"` -eq '0' ];then
     uci add_list dockerd.globals.registry_mirrors='https://hub-mirror.c.163.com'
@@ -73,21 +63,6 @@ uci del upnpd.config.enable_upnp
 uci del upnpd.config.enable_natpmp
 uci set upnpd.config.external_iface='wan'
 uci commit upnpd
-
-# dnsmasq
-uci set dhcp.lan.ra='hybrid'
-uci set dhcp.lan.ndp='hybrid'
-uci set dhcp.lan.dhcpv6='hybrid'
-uci set dhcp.lan.ra_management='1'
-uci del dhcp.@dnsmasq[0].rebind_protection='1'
-uci commit dhcp
-sed -i '/log-facility/d' /etc/dnsmasq.conf
-echo "log-facility=/dev/null" >> /etc/dnsmasq.conf
-
-# packet_steering
-uci set network.globals.packet_steering='1'
-uci commit network
-/etc/init.d/network restart
 
 # disable coremark
 sed -i '/coremark/d' /etc/crontabs/root
