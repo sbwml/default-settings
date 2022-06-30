@@ -57,11 +57,7 @@ if [ `grep -c 163 "/etc/config/dockerd"` -eq '0' ];then
 fi
 
 # upnp
-uci set upnpd.config.igdv1='1'
 uci set upnpd.config.enabled='1'
-uci del upnpd.config.enable_upnp
-uci del upnpd.config.enable_natpmp
-uci set upnpd.config.external_iface='wan'
 uci commit upnpd
 
 # disable coremark
