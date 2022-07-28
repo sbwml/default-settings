@@ -54,6 +54,7 @@ uci commit nginx
 if [ `grep -c 163 "/etc/config/dockerd"` -eq '0' ];then
     uci add_list dockerd.globals.registry_mirrors='https://hub-mirror.c.163.com'
     uci commit dockerd
+    /etc/init.d/dockerd restart
 fi
 
 # upnp
