@@ -1075,3 +1075,9 @@ msgstr "系统上存在旧版 iptables 规则，不建议混合使用 iptables �
 #: modules/luci-mod-status/htdocs/luci-static/resources/view/status/nftables.js:676
 msgid "Open iptables rules overview…"
 msgstr "打开 iptables 规则概览"
+
+msgid "Refresh interval"
+msgstr "刷新间隔"
+
+msgid "seconds"
+msgstr "秒"
