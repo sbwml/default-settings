@@ -8,7 +8,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=default-settings
 PKG_VERSION:=1.1
-PKG_RELEASE:=52
+PKG_RELEASE:=53
 PKG_LICENSE:=GPLv3
 PKG_LICENSE_FILES:=LICENSE
 
@@ -21,7 +21,7 @@ define Package/default-settings
   CATEGORY:=LuCI
   TITLE:=LuCI support for Default Settings
   PKGARCH:=all
-  DEPENDS:=+luci-base +kmod-ipt-nat6 +kmod-tun +kmod-nf-nathelper-extra +luci-lib-ipkg +luci-compat +openssl-util +iptables-mod-fullconenat +iptables-mod-nat-extra +ip6tables-mod-nat +@LUCI_LANG_zh_Hans
+  DEPENDS:=+luci-base +luci-compat +luci-lib-ipkg +luci-proto-ipv6 +kmod-ipt-nat6 +kmod-tun +kmod-nf-nathelper-extra +6in4 +libip6t +odhcp6c +odhcpd-ipv6only +ip6tables +ip6tables-mod-fullconenat +ip6tables-mod-nat +iptables-mod-fullconenat +iptables-mod-nat-extra +openssl-util +@LUCI_LANG_zh_Hans
 endef
 
 define Package/default-settings/description
