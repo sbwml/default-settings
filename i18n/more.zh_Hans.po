@@ -1079,5 +1079,5 @@ msgstr "打开 iptables 规则概览"
 msgid "Refresh interval"
 msgstr "刷新间隔"
 
-msgid "seconds"
-msgstr "秒"
+msgid "Refresh interval in seconds"
+msgstr "刷新间隔（以秒为单位）"
