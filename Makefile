@@ -21,7 +21,7 @@ define Package/default-settings
   CATEGORY:=LuCI
   TITLE:=LuCI support for Default Settings
   PKGARCH:=all
-  DEPENDS:=+luci-base +luci-compat +luci-lib-ipkg +luci-proto-ipv6 +kmod-ipt-nat6 +kmod-tun +kmod-nf-nathelper-extra +6in4 +odhcp6c +odhcpd-ipv6only +ip6tables +ip6tables-mod-nat +iptables-mod-nat-extra +libip6tc2 +openssl-util +@LUCI_LANG_zh_Hans
+  DEPENDS:=+luci-base +luci-compat +luci-lib-ipkg +luci-proto-ipv6 +kmod-ipt-nat6 +kmod-tun +kmod-nf-nathelper-extra +6in4 +odhcp6c +odhcpd-ipv6only +ip6tables +ip6tables-mod-nat +iptables-mod-nat-extra +libip6tc +openssl-util +@LUCI_LANG_zh_Hans
 endef
 
 define Package/default-settings/description
