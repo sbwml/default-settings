@@ -77,16 +77,6 @@ uci set linkease.@linkease[0].enabled='0'
 uci commit linkease
 /etc/init.d/linkease restart
 
-# openssl - enable hardware acceleration engine
-if [ -e "/dev/crypto" ]; then
-    sed -i 's/#devcrypto/devcrypto/g' /etc/ssl/openssl.cnf
-    if [ -f /usr/lib/engines-*/afalg.so ]; then
-        sed -i 's/#afalg/afalg/g' /etc/ssl/openssl.cnf
-    elif [ -f /usr/lib/engines-*/padlock.so ]; then
-        sed -i 's/#padlock/padlock/g' /etc/ssl/openssl.cnf
-    fi
-fi
-
 # link
 ln -sf /bin/busybox /bin/top
 
