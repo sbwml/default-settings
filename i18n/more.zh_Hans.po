@@ -833,6 +833,9 @@ msgstr ""
 msgid "Refresh interval"
 msgstr "刷新间隔"
 
+msgid "Refresh interval in seconds"
+msgstr "刷新间隔（以秒为单位）"
+
 msgid "Restore"
 msgstr "恢复"
 
@@ -1061,23 +1064,189 @@ msgstr "禁用 IPv6(AAAA) 解析记录"
 msgid "Enable FullCone NAT"
 msgstr "全锥形 NAT"
 
-# openwrt luci
-#: modules/luci-mod-status/htdocs/luci-static/resources/view/status/nftables.js:671
+
+# openwrt luci-base
+
 msgid "Legacy rules detected"
 msgstr "检测到旧版规则"
 
-#: modules/luci-mod-status/htdocs/luci-static/resources/view/status/nftables.js:672
 msgid ""
 "There are legacy iptables rules present on the system. Mixing iptables and "
 "nftables rules is discouraged and may lead to incomplete traffic filtering."
-msgstr "系统上存在旧版 iptables 规则，不建议混合使用 iptables 和 nftables 规则，这可能会导致流量过滤不完整。"
+msgstr ""
+"系统上存在旧版 iptables 规则。 不鼓励混合使用 iptables 和 nftables 规则，这可"
+"能会导致流量过滤不完整。"
 
-#: modules/luci-mod-status/htdocs/luci-static/resources/view/status/nftables.js:676
 msgid "Open iptables rules overview…"
-msgstr "打开 iptables 规则概览"
+msgstr "打开 iptables 规则概况…"
 
-msgid "Refresh interval"
-msgstr "刷新间隔"
+msgid "Apply and revert on connectivity loss"
+msgstr "连接丢失后应用还原"
 
-msgid "Refresh interval in seconds"
-msgstr "刷新间隔（以秒为单位）"
+msgid "Apply with revert after connectivity loss"
+msgstr "连接丢失后应用还原"
+
+msgid "Endpoint setting is invalid"
+msgstr "端点设置无效"
+
+msgid "Gateway Mode"
+msgstr "网关模式"
+
+msgid "Generate configuration"
+msgstr "生成配置"
+
+msgid "Generate configuration…"
+msgstr "生成配置…"
+
+msgid "Generate new key pair"
+msgstr "生成新的密钥对"
+
+msgid "Generate preshared key"
+msgstr "生成预共享密钥"
+
+msgid "Generates a configuration suitable for import on a WireGuard peer"
+msgstr "生成适合在 WireGuard 对端上导入的配置"
+
+msgid "Import as peer"
+msgstr "导入为 peer"
+
+msgid "Import configuration"
+msgstr "导入配置文件"
+
+msgid "Import peer configuration…"
+msgstr "导入对端配置…"
+
+msgid "Import settings"
+msgstr "导入设置"
+
+msgid "Imported peer configuration"
+msgstr "导入对端配置"
+
+msgid "Imports settings from an existing WireGuard configuration file"
+msgstr "从现有的 WireGuard 配置文件导入设置"
+
+msgid ""
+"In bridged LAN setups it is advisable to enable the bridge loop avoidance in "
+"order to avoid broadcast loops that can bring the entire LAN to a standstill."
+msgstr ""
+"在桥接 LAN 设置中，建议启用桥接环路避免功能，以避免可导致整个 LAN 停止的广播"
+"环路。"
+
+msgctxt "Label indicating that WireGuard peer lacks public key"
+msgid "Key missing"
+msgstr "密钥缺失"
+
+msgid "ListenPort setting is invalid"
+msgstr "ListenPort 设置无效"
+
+msgid "Load configuration…"
+msgstr "加载配置…"
+
+msgid "Mesh Routing"
+msgstr "Mesh 路由"
+
+msgid "Mesh and routing related options"
+msgstr "Mesh 和路由相关选项"
+
+msgid "Multicast Mode"
+msgstr "多播模式"
+
+msgid "Network Coding"
+msgstr "网络编码"
+
+msgid ""
+"No fixed interface listening port defined, peers might not be able to "
+"initiate connections to this WireGuard instance!"
+msgstr ""
+"没有定义固定的接口监听端口，对端可能无法发起到此 WireGuard 实例的连接！"
+
+msgid ""
+"Optional. Private key of the WireGuard peer. The key is not required for "
+"establishing a connection but allows generating a peer configuration or QR "
+"code if available. It can be removed after the configuration has been "
+"exported."
+msgstr ""
+"可选。WireGuard 对端的私钥。 该密钥不是建立连接所必需的，但允许生成对端配置"
+"或 二维码（如果可用）。 导出配置后可以将其删除。"
+
+msgid "Overwrite the current settings with the imported configuration?"
+msgstr "用导入的配置覆盖当前设置？"
+
+msgid "Paste or drag WireGuard peer configuration (wg0.conf) file…"
+msgstr "粘贴或拖动 WireGuard peer 配置 (wg0.conf) 文件…"
+
+msgid ""
+"Paste or drag a WireGuard configuration (commonly <em>wg0.conf</em>) from "
+"another system below to create a matching peer entry allowing that system to "
+"connect to the local WireGuard interface."
+msgstr ""
+"将来自另一个系统的 WireGuard 配置（通常是 <em>wg0.conf</em>）"
+"粘贴或拖动到下方创建一个匹配的 peer 条目，其允许该系统连接到本地 WireGuard "
+"接口。"
+
+msgid "Paste or drag supplied WireGuard configuration file…"
+msgstr "粘贴或拖动提供的 WireGuard 配置文件…"
+
+msgid "PersistentKeepAlive setting is invalid"
+msgstr "PersistentKeepAlive 设置无效"
+
+msgid "Preshared key in use"
+msgstr "预共享密钥使用中"
+
+msgid "PresharedKey setting is invalid"
+msgstr "PresharedKey 设置无效"
+
+msgid ""
+"Prevents one wireless client to talk to another. This setting only affects "
+"packets without any VLAN tag (untagged packets)."
+msgstr ""
+"防止一个无线客户端与另一个客户端通信。 此设置仅影响没有任何 VLAN 标记的数据包"
+"（未打标记的数据包）。"
+
+msgid "Private key present"
+msgstr "存在私钥"
+
+msgid "PrivateKey setting is missing or invalid"
+msgstr "PrivateKey 设置丢失或无效"
+
+msgid "Public key is missing"
+msgstr "缺少公钥"
+
+msgctxt "Tooltip displaying full WireGuard peer public key"
+msgid "Public key: %h"
+msgstr "公钥：%h"
+
+msgid "PublicKey setting is invalid"
+msgstr "公钥设置无效"
+
+msgid "Routing Algorithm"
+msgstr "路由算法"
+
+msgid "Server"
+msgstr "服务器"
+
+msgid ""
+"The <em>qrencode</em> package is required for generating an QR code image of "
+"the configuration."
+msgstr "<em>qrencode</em>包对生成配置的二维码图像是必需的。"
+
+msgid ""
+"The public hostname or IP address of this system the peer should connect to. "
+"This usually is a static public IP address, a static hostname or a DDNS "
+"domain."
+msgstr ""
+"对端应连接到的此系统的公共主机名或 IP 地址。 通常是静态公共 IP 地址、静态主机"
+"名或 DDNS 域。"
+
+msgid ""
+"The value specifies the interval (milliseconds) in which batman-adv floods "
+"the network with its protocol information."
+msgstr "该值指定 batman-adv 向网络发送其协议信息的时间间隔（毫秒）。"
+
+msgid "WireGuard peer is disabled"
+msgstr "WireGuard 对端被禁用"
+
+msgid ""
+"reduces overhead by collecting and aggregating originator messages in a "
+"single packet rather than many small ones"
+msgstr "通过在单个数据包而不是许多小数据包中收集和聚合发起方消息来减少开销"
