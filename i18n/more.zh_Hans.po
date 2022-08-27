@@ -1055,16 +1055,6 @@ msgstr "通常为 wan"
 msgid "usually is lan"
 msgstr "通常为 lan"
 
-msgid "Filter IPv6 Records"
-msgstr "禁用 IPv6 解析"
-
-msgid "Filter IPv6(AAAA) Records during DNS resolution"
-msgstr "禁用 IPv6(AAAA) 解析记录"
-
-msgid "Enable FullCone NAT"
-msgstr "全锥形 NAT"
-
-
 # openwrt luci-base
 
 msgid "Legacy rules detected"
