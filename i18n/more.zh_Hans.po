@@ -978,6 +978,9 @@ msgstr "正在关闭..."
 msgid "Status"
 msgstr "状态"
 
+msgid "Upload has been cancelled"
+msgstr "上传已取消"
+
 msgid ""
 "The system is rebooting now.<br /> DO NOT POWER OFF THE DEVICE!<br /> Wait a "
 "few minutes before you try to reconnect. It might be necessary to renew the "
