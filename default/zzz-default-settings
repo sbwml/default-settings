@@ -34,7 +34,7 @@ uci add_list system.ntp.server='time.apple.com'
 uci commit system
 
 # opkg mirror
-sed -i 's,downloads.openwrt.org,mirror.sjtu.edu.cn/openwrt,g' /etc/opkg/distfeeds.conf
+sed -i 's,downloads.openwrt.org,mirrors.pku.edu.cn/openwrt,g' /etc/opkg/distfeeds.conf
 
 # nginx
 uci set nginx.global.uci_enable='true'
