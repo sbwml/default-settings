@@ -108,6 +108,21 @@ msgstr "禁用 IPv6 解析"
 msgid "Filter IPv6(AAAA) Records during DNS resolution"
 msgstr "禁用 IPv6(AAAA) 解析记录"
 
+msgid "Filter IPv4 A records"
+msgstr "过滤 IPv4 A 记录"
+
+msgid "Remove IPv4 addresses from the results and only return IPv6 addresses."
+msgstr "从结果中删除 IPv4 地址，只返回 IPv6 地址。"
+
+msgid "Filter IPv6 AAAA records"
+msgstr "过滤 IPv6 AAAA 记录"
+
+msgid "Remove IPv6 addresses from the results and only return IPv4 addresses."
+msgstr "从结果中删除 IPv6 地址，只返回 IPv4 地址。"
+
+msgid "Can be useful if ISP has IPv6 nameservers but does not provide IPv6 routing."
+msgstr "如果你的 ISP 有 IPv6 名称服务器但不提供 IPv6 路由，本选项可能会有用。"
+
 msgid "Enable FullCone NAT"
 msgstr "全锥形 NAT"
 
