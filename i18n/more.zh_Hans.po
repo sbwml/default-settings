@@ -1060,11 +1060,11 @@ msgstr "通常为 lan"
 
 # openwrt luci-base
 
-msgid "NFTABLES Firewall Status"
-msgstr "nftables 防火墙状态"
+msgid "Nftables Firewall"
+msgstr "nftables 防火墙"
 
-msgid "IPTABLES Firewall Status"
-msgstr "iptables 防火墙状态"
+msgid "Iptables Firewall"
+msgstr "iptables 防火墙"
 
 msgid "Endpoint setting is invalid"
 msgstr "端点设置无效"
