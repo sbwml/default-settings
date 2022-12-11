@@ -1060,25 +1060,6 @@ msgstr "通常为 lan"
 
 # openwrt luci-base
 
-msgid "Legacy rules detected"
-msgstr "检测到旧版规则"
-
-msgid ""
-"There are legacy iptables rules present on the system. Mixing iptables and "
-"nftables rules is discouraged and may lead to incomplete traffic filtering."
-msgstr ""
-"系统上存在旧版 iptables 规则。 不鼓励混合使用 iptables 和 nftables 规则，这可"
-"能会导致流量过滤不完整。"
-
-msgid "Open iptables rules overview…"
-msgstr "打开 iptables 规则概况…"
-
-msgid "Apply and revert on connectivity loss"
-msgstr "连接丢失后应用还原"
-
-msgid "Apply with revert after connectivity loss"
-msgstr "连接丢失后应用还原"
-
 msgid "Endpoint setting is invalid"
 msgstr "端点设置无效"
 
