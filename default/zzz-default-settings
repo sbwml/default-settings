@@ -1,5 +1,20 @@
 #!/bin/sh
 
+. /lib/functions/uci-defaults.sh
+
+devices_setup()
+{
+	case "$(board_name)" in
+	friendlyarm,nanopi-r4s)
+		;;
+	friendlyarm,nanopi-r5s)
+		uci set irqbalance.irqbalance.enabled='1'
+		uci commit irqbalance
+		service irqbalance restart
+		;;
+	esac
+}
+
 # theme
 uci set luci.main.mediaurlbase='/luci-static/argon'
 uci set luci.main.pollinterval='2'
@@ -71,5 +86,8 @@ uci commit firewall
 # disable coremark
 sed -i '/coremark/d' /etc/crontabs/root
 crontab /etc/crontabs/root
+
+# init
+devices_setup
 
 exit 0
