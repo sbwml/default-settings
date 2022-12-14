@@ -67,7 +67,7 @@ uci add_list nginx._lan.listen='[::]:80 default_server'
 uci add_list nginx._lan.include='conf.d/*.locations'
 uci set nginx._lan.access_log='off; # logd openwrt'
 uci commit nginx
-/etc/init.d/nginx restart
+service nginx restart
 
 # docker mirror
 if [ `grep -c 163 "/etc/config/dockerd"` -eq '0' ];then
@@ -78,13 +78,12 @@ fi
 # upnp
 uci set upnpd.config.enabled='1'
 uci commit upnpd
-/etc/init.d/miniupnpd restart
+service miniupnpd restart
 
 # firewall
 uci set firewall.@defaults[0].fullcone='1'
 uci set firewall.@defaults[0].flow_offloading='1'
 uci commit firewall
-/etc/init.d/firewall restart
 
 # disable coremark
 sed -i '/coremark/d' /etc/crontabs/root
