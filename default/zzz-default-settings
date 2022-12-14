@@ -6,6 +6,9 @@ devices_setup()
 {
 	case "$(board_name)" in
 	friendlyarm,nanopi-r4s)
+		uci set irqbalance.irqbalance.enabled='0'
+		uci commit irqbalance
+		service irqbalance restart
 		;;
 	friendlyarm,nanopi-r5s)
 		uci set irqbalance.irqbalance.enabled='1'
