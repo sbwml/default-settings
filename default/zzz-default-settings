@@ -70,8 +70,8 @@ uci commit nginx
 service nginx restart
 
 # docker mirror
-if [ `grep -c 163 "/etc/config/dockerd"` -eq '0' ];then
-    uci add_list dockerd.globals.registry_mirrors='https://hub-mirror.c.163.com'
+if [ `grep -c edu "/etc/config/dockerd"` -eq '0' ];then
+    uci add_list dockerd.globals.registry_mirrors='https://docker.mirrors.sjtug.sjtu.edu.cn'
     uci commit dockerd
 fi
 
