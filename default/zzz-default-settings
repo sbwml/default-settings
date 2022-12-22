@@ -8,12 +8,12 @@ devices_setup()
 	friendlyarm,nanopi-r4s)
 		uci set irqbalance.irqbalance.enabled='0'
 		uci commit irqbalance
-		service irqbalance restart
+		service irqbalance stop
 		;;
 	friendlyarm,nanopi-r5s)
-		uci set irqbalance.irqbalance.enabled='1'
+		uci set irqbalance.irqbalance.enabled='0'
 		uci commit irqbalance
-		service irqbalance restart
+		service irqbalance stop
 		;;
 	esac
 }
