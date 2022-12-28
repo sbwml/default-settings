@@ -14,6 +14,8 @@ devices_setup()
 		uci set irqbalance.irqbalance.enabled='0'
 		uci commit irqbalance
 		service irqbalance stop
+		sed -i "/openwrt_core/c\src/gz openwrt_core https://kmod.cooluc.com/$(cat /usr/lib/opkg/info/kernel.control | grep Version | awk '{print $2}')" \
+		/etc/opkg/distfeeds.conf
 		;;
 	esac
 }
