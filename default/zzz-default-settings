@@ -31,8 +31,8 @@ uci set system.@system[0].zonename=Asia/Shanghai
 uci commit system
 
 # log level
-uci set system.@system[0].conloglevel='7'
-uci set system.@system[0].cronloglevel='8'
+uci set system.@system[0].conloglevel='1'
+uci set system.@system[0].cronloglevel='9'
 uci commit system
 
 # zram
