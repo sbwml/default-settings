@@ -1066,6 +1066,9 @@ msgstr "NFtables 防火墙"
 msgid "IPtables Firewall"
 msgstr "IPtables 防火墙"
 
+msgid "Apply and revert on connectivity loss"
+msgstr "连接丢失后应用还原"
+
 msgid "Apply with revert after connectivity loss"
 msgstr "连接丢失后应用还原"
 
