@@ -9,15 +9,19 @@ devices_setup()
 		uci set irqbalance.irqbalance.enabled='0'
 		uci commit irqbalance
 		service irqbalance stop
-		[ $(uname -r | awk -F. '{print $1}') = 6 ] && sed -i "/openwrt_core/c\src/gz openwrt_core https://kmod.cooluc.com/$(cat /usr/lib/opkg/info/kernel.control | grep Version | awk '{print $2}')" \
-		/etc/opkg/distfeeds.conf
+		[ $(uname -r | awk -F. '{print $1}') = 6 ] && {
+			sed -i "/openwrt_core/c\src/gz openwrt_core https://kmod.cooluc.com/$(cat /usr/lib/opkg/info/kernel.control | grep Version | awk '{print $2}')" /etc/opkg/distfeeds.conf
+			uci set ota.config.api_url='https://api.cooluc.com/openwrt/fw.json'
+			uci commit ota
+		}
 		;;
 	friendlyarm,nanopi-r5s)
 		uci set irqbalance.irqbalance.enabled='0'
 		uci commit irqbalance
 		service irqbalance stop
-		sed -i "/openwrt_core/c\src/gz openwrt_core https://kmod.cooluc.com/$(cat /usr/lib/opkg/info/kernel.control | grep Version | awk '{print $2}')" \
-		/etc/opkg/distfeeds.conf
+		sed -i "/openwrt_core/c\src/gz openwrt_core https://kmod.cooluc.com/$(cat /usr/lib/opkg/info/kernel.control | grep Version | awk '{print $2}')" /etc/opkg/distfeeds.conf
+		uci set ota.config.api_url='https://api.cooluc.com/openwrt/fw.json'
+		uci commit ota
 		;;
 	esac
 }
