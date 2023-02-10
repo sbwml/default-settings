@@ -10,7 +10,7 @@ devices_setup()
 		uci commit irqbalance
 		service irqbalance stop
 		[ $(uname -r | awk -F. '{print $1}') = 6 ] && {
-			sed -i "/openwrt_core/c\src/gz openwrt_core https://cf.cooluc.com/$(cat /usr/lib/opkg/info/kernel.control | grep Version | awk '{print $2}')" /etc/opkg/distfeeds.conf
+			sed -i "/openwrt_core/c\src/gz openwrt_core https://cf.cooluc.com/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
 			uci set ota.config.api_url='https://api.cooluc.com/openwrt/fw.json'
 			uci commit ota
 		}
@@ -19,7 +19,7 @@ devices_setup()
 		uci set irqbalance.irqbalance.enabled='0'
 		uci commit irqbalance
 		service irqbalance stop
-		sed -i "/openwrt_core/c\src/gz openwrt_core https://cf.cooluc.com/$(cat /usr/lib/opkg/info/kernel.control | grep Version | awk '{print $2}')" /etc/opkg/distfeeds.conf
+		sed -i "/openwrt_core/c\src/gz openwrt_core https://cf.cooluc.com/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
 		uci set ota.config.api_url='https://api.cooluc.com/openwrt/fw.json'
 		uci commit ota
 		;;
@@ -42,7 +42,7 @@ uci set system.@system[0].cronloglevel='9'
 uci commit system
 
 # zram
-mem_total=$(cat /proc/meminfo | grep MemTotal | awk '{print $2}')
+mem_total=$(grep MemTotal /proc/meminfo | awk '{print $2}')
 zram_size=$(echo | awk "{print int($mem_total*0.25/1024)}")
 uci set system.@system[0].zram_size_mb="$zram_size"
 uci set system.@system[0].zram_comp_algo='lz4'
