@@ -15,6 +15,7 @@ devices_setup()
 			uci commit ota
 		}
 		;;
+	friendlyarm,nanopi-r5c|\
 	friendlyarm,nanopi-r5s)
 		uci set irqbalance.irqbalance.enabled='0'
 		uci commit irqbalance
