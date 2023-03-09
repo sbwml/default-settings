@@ -10,7 +10,7 @@ devices_setup()
 		uci commit irqbalance
 		service irqbalance stop
 		[ $(uname -r | awk -F. '{print $1}') = 6 ] && {
-			sed -i "/openwrt_core/c\src/gz openwrt_core https://cf.cooluc.com/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
+			sed -i "/openwrt_core/c\src/gz openwrt_core https://raw.cooluc.com/sbwml/kmod-aarch64/master/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
 			uci set ota.config.api_url='https://api.cooluc.com/openwrt/fw.json'
 			uci commit ota
 		}
@@ -20,7 +20,7 @@ devices_setup()
 		uci set irqbalance.irqbalance.enabled='0'
 		uci commit irqbalance
 		service irqbalance stop
-		sed -i "/openwrt_core/c\src/gz openwrt_core https://cf.cooluc.com/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
+		sed -i "/openwrt_core/c\src/gz openwrt_core https://raw.cooluc.com/sbwml/kmod-aarch64/master/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
 		uci set ota.config.api_url='https://api.cooluc.com/openwrt/fw.json'
 		uci commit ota
 		;;
