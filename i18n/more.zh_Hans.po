@@ -1236,3 +1236,24 @@ msgid ""
 "reduces overhead by collecting and aggregating originator messages in a "
 "single packet rather than many small ones"
 msgstr "通过在单个数据包而不是许多小数据包中收集和聚合发起方消息来减少开销"
+
+msgid "value between %d and %d characters"
+msgstr "%d 和 %d 字符之间的值"
+
+msgid "value between %f and %f"
+msgstr "%f 和 %f 之间的值"
+
+msgid "value greater or equal to %f"
+msgstr "值大于或等于 %f"
+
+msgid "value smaller or equal to %f"
+msgstr "值小于或等于 %f"
+
+msgid "value with %d characters"
+msgstr "值有 %d 个字符"
+
+msgid "value with at least %d characters"
+msgstr "值至少为 %d 个字符"
+
+msgid "value with at most %d characters"
+msgstr "值至多为 %d 个字符"
