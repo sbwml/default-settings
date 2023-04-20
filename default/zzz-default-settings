@@ -68,7 +68,7 @@ uci commit nginx
 service nginx restart
 
 # docker mirror
-if [ `grep -c edu "/etc/config/dockerd"` -eq '0' ];then
+if [ -f /etc/config/dockerd ] && [ $(grep -c edu /etc/config/dockerd) -eq '0' ]; then
     uci add_list dockerd.globals.registry_mirrors='https://docker.mirrors.sjtug.sjtu.edu.cn'
     uci commit dockerd
 fi
@@ -82,6 +82,14 @@ service miniupnpd restart
 uci set firewall.@defaults[0].fullcone='1'
 uci set firewall.@defaults[0].flow_offloading='1'
 uci commit firewall
+
+# diagnostics
+if [ $(uci -q get luci.diag.ping) = "openwrt.org" ]; then
+    uci set luci.diag.dns='www.qq.com'
+    uci set luci.diag.ping='www.qq.com'
+    uci set luci.diag.route='www.qq.com'
+    uci commit luci
+fi
 
 # disable coremark
 sed -i '/coremark/d' /etc/crontabs/root
