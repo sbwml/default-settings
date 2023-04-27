@@ -14,6 +14,7 @@ devices_setup()
 			uci set ota.config.api_url='https://api.cooluc.com/openwrt/fw.json'
 			uci commit ota
 		}
+		[ -f /etc/synoinfo.conf ] && echo "unique=\"synology_$(sha256sum /sys/block/mmcblk*/device/cid | head -n 1 | cut -c1-7)_720+\"" > /etc/synoinfo.conf
 		;;
 	friendlyarm,nanopi-r5c|\
 	friendlyarm,nanopi-r5s)
@@ -23,6 +24,7 @@ devices_setup()
 		sed -i "/openwrt_core/c\src/gz openwrt_core https://raw.cooluc.com/sbwml/kmod-aarch64/master/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
 		uci set ota.config.api_url='https://api.cooluc.com/openwrt/fw.json'
 		uci commit ota
+		[ -f /etc/synoinfo.conf ] && echo "unique=\"synology_$(sha256sum /sys/block/mmcblk*/device/cid | head -n 1 | cut -c1-7)_720+\"" > /etc/synoinfo.conf
 		;;
 	esac
 }
