@@ -1,6 +1,7 @@
 #!/bin/sh
 
 . /lib/functions/uci-defaults.sh
+[ $(uname -m) = "x86_64" ] && alias board_name="echo x86_64"
 
 devices_setup()
 {
@@ -25,6 +26,10 @@ devices_setup()
 		uci set ota.config.api_url='https://api.cooluc.com/openwrt/fw.json'
 		uci commit ota
 		[ -f /etc/synoinfo.conf ] && echo "unique=\"synology_$(sha256sum /sys/block/mmcblk*/device/cid | head -n 1 | cut -c1-7)_720+\"" > /etc/synoinfo.conf
+		;;
+	x86_64)
+		uci set ota.config.api_url='https://api.cooluc.com/openwrt/fw.json'
+		uci commit ota
 		;;
 	esac
 }
