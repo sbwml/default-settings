@@ -110,8 +110,8 @@ devices_setup
 # upgrade openwrt-22.03 -> 23.05
 if [ "$BUILD_DATE" -gt "1687019581" ]; then
     [ $(grep -c "nsCertType" /etc/ssl/openssl.cnf) -gt '0' ] && [ -f /rom/etc/ssl/openssl.cnf ] && \
-        \cp -a /rom/etc/ssl/openssl.cnf /etc/ssl/openssl.cnf
-    [ $(grep -c "cryptodev_hw" /etc/config/cpufreq) -gt '0' ] && { uci del cpufreq.cpufreq.cryptodev_hw ; uci -q commit cpufreq }
+        rm -f /etc/ssl/openssl.cnf && \cp -a /rom/etc/ssl/openssl.cnf /etc/ssl/openssl.cnf
+    [ $(grep -c "cryptodev_hw" /etc/config/cpufreq) -gt '0' ] && uci -q del cpufreq.cpufreq.cryptodev_hw && uci -q commit cpufreq
 fi
 
 exit 0
