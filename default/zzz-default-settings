@@ -1,6 +1,8 @@
 #!/bin/sh
 
+. /etc/os-release
 . /lib/functions/uci-defaults.sh
+
 [ $(uname -m) = "x86_64" ] && alias board_name="echo x86_64"
 
 devices_setup()
@@ -104,5 +106,12 @@ crontab /etc/crontabs/root
 
 # init
 devices_setup
+
+# upgrade openwrt-22.03 -> 23.05
+if [ "$BUILD_DATE" -gt "1687019581" ]; then
+    [ $(grep -c "nsCertType" /etc/ssl/openssl.cnf) -gt '0' ] && [ -f /rom/etc/ssl/openssl.cnf ] && \
+        \cp -a /rom/etc/ssl/openssl.cnf /etc/ssl/openssl.cnf
+    [ $(grep -c "cryptodev_hw" /etc/config/cpufreq) -gt '0' ] && { uci del cpufreq.cpufreq.cryptodev_hw ; uci -q commit cpufreq }
+fi
 
 exit 0
