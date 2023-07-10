@@ -41,7 +41,7 @@ msgid "ZRam Settings"
 msgstr "ZRam 设置"
 
 msgid "ZRam Compression Algorithm"
-msgstr "ZRam 压缩算法"
+msgstr "ZRAM压缩算法"
 
 msgid "ZRam Compression Streams"
 msgstr "ZRam 压缩数据流线程数"
@@ -58,6 +58,15 @@ msgstr "用于压缩内存数据的CPU并发线程数"
 msgid "Swap"
 msgstr "虚拟内存"
 
+msgid "Base Setting"
+msgstr "基本设置"
+
+msgid "Log"
+msgstr "日志"
+
+msgid "NAS"
+msgstr "网络存储"
+
 msgid "Force 40MHz mode"
 msgstr "强制 40MHz 频宽"
 
@@ -68,6 +77,12 @@ msgstr "强制启用 40MHz 频宽并忽略辅助信道重叠。此选项可能�
 
 msgid "Disassociate On Low Acknowledgement"
 msgstr "弱信号剔除"
+
+msgid "(no interfaces attached)"
+msgstr "（未连接到接口）"
+
+msgid "Collisions seen"
+msgstr "检测到冲突"
 
 msgid "Ethernet Information"
 msgstr "网口信息"
@@ -95,6 +110,52 @@ msgstr "全双工"
 
 msgid "Half Duplex"
 msgstr "半双工"
+
+msgid "No zone assigned"
+msgstr "未分配区域"
+
+msgid "Part of network:"
+msgid_plural "Part of networks:"
+msgstr[0] "属于以下网络："
+
+msgid "Part of zone %q"
+msgstr "属于区域 %q"
+
+msgid "Port is not part of any network"
+msgstr "端口不属于任何网络"
+
+msgid "Receive dropped"
+msgstr "接收丢弃"
+
+msgid "Receive errors"
+msgstr "接收错误"
+
+msgid "Received bytes"
+msgstr "接收字节"
+
+msgid "Received multicast"
+msgstr "接收组播"
+
+msgid "Received packets"
+msgstr "接收数据包"
+
+msgid "Speed: %d Mbit/s, Duplex: %s"
+msgstr "速率：%d Mbit/s，双工模式：%s"
+
+msgid "Transmit dropped"
+msgstr "传输丢弃"
+
+msgid "Transmit errors"
+msgstr "传输错误"
+
+msgid "Transmitted bytes"
+msgstr "传输字节"
+
+msgid "Transmitted packets"
+msgstr "传输数据包"
+
+msgid "no link"
+msgstr "未连接"
 
 msgid "Allow AP mode to disconnect STAs based on low ACK condition"
 msgstr "允许 AP 模式基于低 ACK 条件判断剔除弱信号的客户端"
