@@ -90,6 +90,7 @@ service miniupnpd restart
 # firewall
 uci set firewall.@defaults[0].fullcone='1'
 uci set firewall.@defaults[0].flow_offloading='1'
+uci set firewall.@defaults[0].input='ACCEPT'
 uci commit firewall
 
 # diagnostics
