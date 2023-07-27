@@ -14,7 +14,7 @@ devices_setup()
 		service irqbalance stop
 		[ $(uname -r | awk -F. '{print $1}') = 6 ] && {
 			sed -i "/openwrt_core/c\src/gz openwrt_core https://raw.cooluc.com/sbwml/kmod-aarch64/master/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
-			uci set ota.config.api_url='https://api.cooluc.com/openwrt/fw2.json'
+			uci set ota.config.api_url='https://api.cooluc.com/openwrt/ota.json'
 			uci commit ota
 		}
 		[ -f /etc/synoinfo.conf ] && echo "unique=\"synology_$(sha256sum /sys/block/mmcblk*/device/cid | head -n 1 | cut -c1-7)_720+\"" > /etc/synoinfo.conf
@@ -25,12 +25,12 @@ devices_setup()
 		uci commit irqbalance
 		service irqbalance stop
 		sed -i "/openwrt_core/c\src/gz openwrt_core https://raw.cooluc.com/sbwml/kmod-aarch64/master/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
-		uci set ota.config.api_url='https://api.cooluc.com/openwrt/fw2.json'
+		uci set ota.config.api_url='https://api.cooluc.com/openwrt/ota.json'
 		uci commit ota
 		[ -f /etc/synoinfo.conf ] && echo "unique=\"synology_$(sha256sum /sys/block/mmcblk*/device/cid | head -n 1 | cut -c1-7)_720+\"" > /etc/synoinfo.conf
 		;;
 	x86_64)
-		uci set ota.config.api_url='https://api.cooluc.com/openwrt/fw2.json'
+		uci set ota.config.api_url='https://api.cooluc.com/openwrt/ota.json'
 		uci commit ota
 		;;
 	esac
