@@ -104,10 +104,6 @@ if [ $(uci -q get luci.diag.ping) = "openwrt.org" ]; then
     uci commit luci
 fi
 
-# disable coremark
-sed -i '/coremark/d' /etc/crontabs/root
-crontab /etc/crontabs/root
-
 # init
 devices_setup
 
