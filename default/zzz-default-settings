@@ -92,8 +92,7 @@ service miniupnpd restart
 
 # firewall
 uci set firewall.@defaults[0].fullcone='1'
-uci del firewall.@defaults[0].shortcut_fe
-uci set firewall.@defaults[0].flow_offloading='1'
+[ $(grep -c shortcut_fe /etc/config/firewall) -eq '0' ] && uci set firewall.@defaults[0].flow_offloading='1'
 uci set firewall.@defaults[0].input='ACCEPT'
 uci commit firewall
 
