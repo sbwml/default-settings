@@ -31,7 +31,7 @@ devices_setup()
 		;;
 	x86_64)
 		[ $(uname -r | awk -F. '{print $1"."$2}') = "5.15" ] && {
-			sed -i "/openwrt_core/c\src/gz openwrt_core https://raw.cooluc.com/sbwml/kmod-x86_64/main/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
+			[ -f /sys/kernel/btf/vmlinux ] && sed -i "/openwrt_core/c\src/gz openwrt_core https://raw.cooluc.com/sbwml/kmod-x86_64/main/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
 		}
 		uci set ota.config.api_url='https://api.cooluc.com/openwrt/ota.json'
 		uci commit ota
