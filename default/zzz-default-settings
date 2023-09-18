@@ -5,42 +5,51 @@
 
 [ $(uname -m) = "x86_64" ] && alias board_name="echo x86_64"
 
+# OTA
+if [ "$VERSION_TYPE" = "minimal" ]; then
+    OTA_URL="https://api.cooluc.com/openwrt/ota_minimal.json"
+else
+    OTA_URL="https://api.cooluc.com/openwrt/ota.json"
+fi
+
 devices_setup()
 {
-	case "$(board_name)" in
-	friendlyarm,nanopi-r4s)
-		uci set irqbalance.irqbalance.enabled='0'
-		uci commit irqbalance
-		service irqbalance stop
-		[ $(uname -r | awk -F. '{print $1}') = 6 ] && {
-			sed -i "/openwrt_core/c\src/gz openwrt_core https://raw.cooluc.com/sbwml/kmod-aarch64/master/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
-			uci set ota.config.api_url='https://api.cooluc.com/openwrt/ota.json'
-			uci commit ota
-		}
-		;;
-	friendlyarm,nanopi-r5c|\
-	friendlyarm,nanopi-r5s)
-		uci set irqbalance.irqbalance.enabled='0'
-		uci commit irqbalance
-		service irqbalance stop
-		sed -i "/openwrt_core/c\src/gz openwrt_core https://raw.cooluc.com/sbwml/kmod-aarch64/master/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
-		uci set ota.config.api_url='https://api.cooluc.com/openwrt/ota.json'
-		uci commit ota
-		;;
-	x86_64)
-		[ $(uname -r | awk -F. '{print $1}') = 6 ] && {
-			[ -f /sys/kernel/btf/vmlinux ] && sed -i "/openwrt_core/c\src/gz openwrt_core https://raw.cooluc.com/sbwml/kmod-x86_64/main/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
-		}
-		uci set ota.config.api_url='https://api.cooluc.com/openwrt/ota.json'
-		uci commit ota
-		;;
-	esac
+    case "$(board_name)" in
+    friendlyarm,nanopi-r4s)
+        uci set irqbalance.irqbalance.enabled='0'
+        uci commit irqbalance
+        service irqbalance stop
+        [ $(uname -r | awk -F. '{print $1}') = 6 ] && {
+            sed -i "/openwrt_core/c\src/gz openwrt_core https://raw.cooluc.com/sbwml/kmod-aarch64/master/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
+            uci set ota.config.api_url="$OTA_URL"
+            uci commit ota
+        }
+        ;;
+    friendlyarm,nanopi-r5c|\
+    friendlyarm,nanopi-r5s)
+        uci set irqbalance.irqbalance.enabled='0'
+        uci commit irqbalance
+        service irqbalance stop
+        sed -i "/openwrt_core/c\src/gz openwrt_core https://raw.cooluc.com/sbwml/kmod-aarch64/master/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
+        uci set ota.config.api_url="$OTA_URL"
+        uci commit ota
+        ;;
+    x86_64)
+        [ $(uname -r | awk -F. '{print $1}') = 6 ] && {
+            [ -f /sys/kernel/btf/vmlinux ] && sed -i "/openwrt_core/c\src/gz openwrt_core https://raw.cooluc.com/sbwml/kmod-x86_64/main/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
+        }
+        uci set ota.config.api_url="$OTA_URL"
+        uci commit ota
+        ;;
+    esac
 }
 
 # theme
-uci set luci.main.mediaurlbase='/luci-static/argon'
-uci set luci.main.pollinterval='2'
-uci commit luci
+if [ "$VERSION_TYPE" != "minimal" ]; then
+    uci set luci.main.mediaurlbase='/luci-static/argon'
+    uci set luci.main.pollinterval='2'
+    uci commit luci
+fi
 
 # timezone
 uci set system.@system[0].timezone=CST-8
@@ -78,7 +87,7 @@ uci commit nginx
 service nginx restart
 
 # docker mirror
-if [ -f /etc/config/dockerd ] && [ $(grep -c edu /etc/config/dockerd) -eq '0' ]; then
+if [ -f /etc/config/dockerd ] && [ $(grep -c edu /etc/config/dockerd) -eq '0' ] && [ "$VERSION_TYPE" != "minimal" ]; then
     uci add_list dockerd.globals.registry_mirrors='https://docker.mirrors.sjtug.sjtu.edu.cn'
     uci commit dockerd
 fi
