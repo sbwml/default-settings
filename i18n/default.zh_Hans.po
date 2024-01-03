@@ -190,6 +190,12 @@ msgstr "全锥形 NAT"
 msgid "Enable FullCone NAT6"
 msgstr "全锥形 NAT6"
 
+msgid "IPv6 NAT"
+msgstr "IPv6 网络地址转换（NAT）"
+
+msgid "Applicable to internet environments where the router is not assigned an IPv6 prefix, such as when using an upstream optical modem for dial-up."
+msgstr "适用于没有给路由分配 IPv6 前缀的上网环境，例如：上级光猫拨号"
+
 msgid "Shortcut-FE flow offloading"
 msgstr "Shortcut-FE 流量分载"
 
