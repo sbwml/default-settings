@@ -187,8 +187,11 @@ msgstr "如果你的 ISP 有 IPv6 名称服务器但不提供 IPv6 路由，本�
 msgid "Enable FullCone NAT"
 msgstr "全锥形 NAT"
 
-msgid "Enable FullCone NAT6"
-msgstr "全锥形 NAT6"
+msgid "BCM FullCone NAT scheme"
+msgstr "博通全锥型 NAT 方案"
+
+msgid "Use the Broadcom FullCone NAT scheme if enabled, and use the NFT FullCone scheme if the option is disabled."
+msgstr "启用该选项时使用 Broadcom FullCone NAT 方案，禁用该选项时则使用 nft-fullcone 方案"
 
 msgid "IPv6 NAT"
 msgstr "IPv6 网络地址转换（NAT）"
