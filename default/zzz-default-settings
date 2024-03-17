@@ -69,7 +69,7 @@ uci set system.@system[0].zram_comp_algo='lz4'
 uci commit system
 
 # opkg mirror
-sed -i 's,downloads.openwrt.org,mirror.sjtu.edu.cn/openwrt,g' /etc/opkg/distfeeds.conf
+sed -i 's,downloads.openwrt.org,mirrors.pku.edu.cn/openwrt,g' /etc/opkg/distfeeds.conf
 
 # nginx
 uci set nginx.global.uci_enable='true'
