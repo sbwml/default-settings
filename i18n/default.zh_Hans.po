@@ -82,6 +82,12 @@ msgstr "半双工"
 msgid "Temperature"
 msgstr "温度"
 
+msgid "NFtables Firewall"
+msgstr "NFtables 防火墙"
+
+msgid "IPtables Firewall"
+msgstr "IPtables 防火墙"
+
 msgid "Refresh interval"
 msgstr "刷新间隔"
 
