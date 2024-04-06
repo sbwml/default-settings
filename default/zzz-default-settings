@@ -34,6 +34,47 @@ devices_setup()
         uci set ota.config.api_url="$OTA_URL"
         uci commit ota
         ;;
+    netgear,r8500)
+        sed -i "/openwrt_core/c\src/gz openwrt_core https://raw.cooluc.com/sbwml/kmod-bcm53xx/main/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
+        uci set ota.config.api_url="$OTA_URL"
+        uci commit ota
+        [ -f "/etc/config/wireless" ] && [ $(grep -c "default_radio" /etc/config/wireless) -ge '1' ] && {
+            uci -q del wireless.default_radio2
+            uci -q del wireless.default_radio1
+            uci -q del wireless.default_radio0
+            uci -q del wireless.wifinet0
+            uci -q del wireless.wifinet1
+            uci -q del wireless.wifinet2
+            uci -q set wireless.wifinet0=wifi-iface
+            uci -q set wireless.wifinet0.device='radio0'
+            uci -q set wireless.wifinet0.mode='ap'
+            uci -q set wireless.wifinet0.ssid='NETGEAR-5G-2'
+            uci -q set wireless.wifinet0.encryption='none'
+            uci -q set wireless.wifinet0.network='lan'
+            uci -q set wireless.radio0.country='AU'
+            uci -q set wireless.radio0.cell_density='3'
+            uci -q del wireless.radio0.disabled
+            uci -q set wireless.wifinet1=wifi-iface
+            uci -q set wireless.wifinet1.device='radio1'
+            uci -q set wireless.wifinet1.mode='ap'
+            uci -q set wireless.wifinet1.ssid='NETGEAR-2.4G'
+            uci -q set wireless.wifinet1.encryption='none'
+            uci -q set wireless.wifinet1.network='lan'
+            uci -q set wireless.radio1.country='AU'
+            uci -q set wireless.radio1.cell_density='3'
+            uci -q del wireless.radio1.disabled
+            uci -q set wireless.wifinet2=wifi-iface
+            uci -q set wireless.wifinet2.device='radio2'
+            uci -q set wireless.wifinet2.mode='ap'
+            uci -q set wireless.wifinet2.ssid='NETGEAR-5G-1'
+            uci -q set wireless.wifinet2.encryption='none'
+            uci -q set wireless.wifinet2.network='lan'
+            # disable 'NETGEAR-5G-1' - currently it doesn't work
+            uci -q set wireless.radio2.disabled='1'
+            uci commit wireless
+            /sbin/wifi >/dev/null 2>&1
+        }
+        ;;
     x86_64)
         [ $(uname -r | awk -F. '{print $1}') = 6 ] && {
             [ -f /sys/kernel/btf/vmlinux ] && sed -i "/openwrt_core/c\src/gz openwrt_core https://raw.cooluc.com/sbwml/kmod-x86_64/main/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
