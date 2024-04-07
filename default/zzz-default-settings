@@ -51,6 +51,8 @@ devices_setup()
             uci -q set wireless.wifinet0.ssid='NETGEAR_5G-2'
             uci -q set wireless.wifinet0.encryption='none'
             uci -q set wireless.wifinet0.network='lan'
+            uci -q set wireless.radio0.htmode='VHT80'
+            uci -q set wireless.radio0.channel='149'
             uci -q set wireless.radio0.country='AU'
             uci -q set wireless.radio0.cell_density='3'
             uci -q del wireless.radio0.disabled
@@ -60,6 +62,8 @@ devices_setup()
             uci -q set wireless.wifinet1.ssid='NETGEAR_2.4G'
             uci -q set wireless.wifinet1.encryption='none'
             uci -q set wireless.wifinet1.network='lan'
+            uci -q set wireless.radio1.htmode='HT40'
+            uci -q set wireless.radio1.channel='1'
             uci -q set wireless.radio1.country='AU'
             uci -q set wireless.radio1.cell_density='3'
             uci -q del wireless.radio1.disabled
@@ -69,6 +73,8 @@ devices_setup()
             uci -q set wireless.wifinet2.ssid='NETGEAR_5G-1'
             uci -q set wireless.wifinet2.encryption='none'
             uci -q set wireless.wifinet2.network='lan'
+            uci -q set wireless.radio2.htmode='VHT80'
+            uci -q set wireless.radio2.channel='36'
             uci -q del wireless.radio2.disabled
             uci commit wireless
             /sbin/wifi >/dev/null 2>&1
