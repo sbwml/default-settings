@@ -100,6 +100,9 @@ msgstr "DNS 转发"
 msgid "Resolv and Hosts Files"
 msgstr "HOSTS 和解析文件"
 
+msgid "PXE/TFTP Settings"
+msgstr "PXE/TFTP 设置"
+
 msgid "Enable FullCone NAT"
 msgstr "全锥形 NAT"
 
