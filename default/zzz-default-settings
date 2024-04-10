@@ -91,7 +91,7 @@ devices_setup()
 }
 
 # theme
-if [ "$VERSION_TYPE" != "minimal" ]; then
+if [ "$VERSION_TYPE" != "minimal" ] && [ -z "$(uci -q get luci.main.pollinterval)" ]; then
     uci set luci.main.mediaurlbase='/luci-static/argon'
     uci set luci.main.pollinterval='2'
     uci commit luci
