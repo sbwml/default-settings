@@ -18,7 +18,7 @@ devices_setup()
     case "$(board_name)" in
     armsr,armv8)
         [ $(uname -r | awk -F. '{print $1}') = 6 ] && {
-            sed -i "/openwrt_core/c\src/gz openwrt_core https://raw.cooluc.com/sbwml/kmod-aarch64/master/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
+            sed -i "/openwrt_core/c\src/gz openwrt_core https://raw.cooluc.com/sbwml/kmod-armsr-armv8/main/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
             uci set ota.config.api_url="$OTA_URL"
             uci commit ota
         }
