@@ -18,7 +18,10 @@ devices_setup()
     case "$(board_name)" in
     armsr,armv8)
         [ $(uname -r | awk -F. '{print $1}') = 6 ] && {
-            [ ! -d "/usr/share/openwrt_core" ] && sed -i "/openwrt_core/c\src/gz openwrt_core https://raw.gitmirror.com/sbwml/kmod-armsr-armv8/main/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
+            [ ! -d "/usr/share/openwrt_core" ] && {
+                sed -i '/openwrt_core/d' /etc/opkg/distfeeds.conf
+                sed -i "\$a\src/gz openwrt_core https://mirror.ghproxy.com/https://raw.githubusercontent.com/sbwml/kmod-armsr-armv8/main/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
+            }
             uci set ota.config.api_url="$OTA_URL"
             uci commit ota
         }
@@ -29,12 +32,18 @@ devices_setup()
         uci set irqbalance.irqbalance.enabled='0'
         uci commit irqbalance
         service irqbalance stop
-        [ ! -d "/usr/share/openwrt_core" ] && sed -i "/openwrt_core/c\src/gz openwrt_core https://raw.gitmirror.com/sbwml/kmod-aarch64/main/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
+        [ ! -d "/usr/share/openwrt_core" ] && {
+            sed -i '/openwrt_core/d' /etc/opkg/distfeeds.conf
+            sed -i "\$a\src/gz openwrt_core https://mirror.ghproxy.com/https://raw.githubusercontent.com/sbwml/kmod-aarch64/main/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
+        }
         uci set ota.config.api_url="$OTA_URL"
         uci commit ota
         ;;
     netgear,r8500)
-        [ ! -d "/usr/share/openwrt_core" ] && sed -i "/openwrt_core/c\src/gz openwrt_core https://raw.gitmirror.com/sbwml/kmod-bcm53xx/main/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
+        [ ! -d "/usr/share/openwrt_core" ] && {
+            sed -i '/openwrt_core/d' /etc/opkg/distfeeds.conf
+            sed -i "\$a\src/gz openwrt_core https://mirror.ghproxy.com/https://raw.githubusercontent.com/sbwml/kmod-bcm53xx/main/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
+        }
         uci set ota.config.api_url="$OTA_URL"
         uci commit ota
         [ -f "/etc/config/wireless" ] && [ $(grep -c "default_radio" /etc/config/wireless) -ge '1' ] && {
@@ -81,7 +90,10 @@ devices_setup()
         ;;
     x86_64)
         [ $(uname -r | awk -F. '{print $1}') = 6 ] && {
-            [ -f /sys/kernel/btf/vmlinux ] && [ ! -d "/usr/share/openwrt_core" ] && sed -i "/openwrt_core/c\src/gz openwrt_core https://raw.gitmirror.com/sbwml/kmod-x86_64/main/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
+            [ -f /sys/kernel/btf/vmlinux ] && [ ! -d "/usr/share/openwrt_core" ] && {
+                sed -i '/openwrt_core/d' /etc/opkg/distfeeds.conf
+                sed -i "\$a\src/gz openwrt_core https://mirror.ghproxy.com/https://raw.githubusercontent.com/sbwml/kmod-x86_64/main/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
+            }
         }
         uci set ota.config.api_url="$OTA_URL"
         uci commit ota
