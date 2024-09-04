@@ -150,11 +150,7 @@ if [ -f /etc/config/dockerd ] && [ $(grep -c daocloud.io /etc/config/dockerd) -e
 fi
 
 # firewall
-[ $(grep -c shortcut_fe /etc/config/firewall) -eq '0' ] && [ $(grep -c natflow_delay_pkts /etc/config/firewall) -eq '0' ] && {
-    uci -q del firewall.@defaults[0].flow_offloading
-    uci -q set firewall.@defaults[0].natflow='1'
-    uci -q set firewall.@defaults[0].natflow_delay_pkts='0'
-}
+[ $(grep -c shortcut_fe /etc/config/firewall) -eq '0' ] && uci set firewall.@defaults[0].flow_offloading='1'
 if [ $(ifconfig -a | grep -o '^eth[^ ]*' | wc -l) -le 1 ] || [ "$OPENWRT_BOARD" = "armsr/armv8" ]; then
     uci set firewall.@zone[1].input='ACCEPT'
 fi
