@@ -130,7 +130,7 @@ msgstr "连接管理器"
 msgid "Set up the Shortcut-FE engine connection manager"
 msgstr "设置 Shortcut-FE 引擎连接管理器"
 
-msgid "Fast natflow offloading"
+msgid "Natflow offloading"
 msgstr "Natflow 流量分载"
 
 msgid "Natflow based offloading for routing/NAT"
