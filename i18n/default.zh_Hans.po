@@ -37,6 +37,15 @@ msgstr "运行中"
 msgid "NOT RUNNING"
 msgstr "未运行"
 
+msgid "Confirm Reboot"
+msgstr "确认重启"
+
+msgid "Are you sure you want to reboot the system?"
+msgstr "你确认要重启系统？"
+
+msgid "Confirm"
+msgstr "确认"
+
 msgid "Login"
 msgstr "登录"
 
