@@ -13,14 +13,18 @@ else
     OTA_URL="https://api.cooluc.com/openwrt/ota.json"
 fi
 
+kernel_version=$(uname -r | cut -d '.' -f 1-2)
+[ "$kernel_version" = "6.11" ] && OTA_URL="https://api.cooluc.com/openwrt/ota_test.json"
+
 devices_setup()
 {
     case "$(board_name)" in
     armsr,armv8)
         [ $(uname -r | awk -F. '{print $1}') = 6 ] && {
             [ ! -d "/usr/share/openwrt_core" ] && {
+                [ "$kernel_version" = "6.11" ] && openwrt_core="openwrt_core/armsr-armv8" || openwrt_core="kmod-armsr-armv8/main"
                 sed -i '/openwrt_core/d' /etc/opkg/distfeeds.conf
-                sed -i "\$a\src/gz openwrt_core https://ghp.ci/raw.githubusercontent.com/sbwml/kmod-armsr-armv8/main/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
+                sed -i "\$a\src/gz openwrt_core https://ghp.ci/raw.githubusercontent.com/sbwml/${openwrt_core}/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
             }
             uci set ota.config.api_url="$OTA_URL"
             uci commit ota
@@ -33,16 +37,18 @@ devices_setup()
         uci commit irqbalance
         service irqbalance stop
         [ ! -d "/usr/share/openwrt_core" ] && {
+            [ "$kernel_version" = "6.11" ] && openwrt_core="openwrt_core/aarch64_generic" || openwrt_core="kmod-aarch64/main"
             sed -i '/openwrt_core/d' /etc/opkg/distfeeds.conf
-            sed -i "\$a\src/gz openwrt_core https://ghp.ci/raw.githubusercontent.com/sbwml/kmod-aarch64/main/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
+            sed -i "\$a\src/gz openwrt_core https://ghp.ci/raw.githubusercontent.com/sbwml/${openwrt_core}/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
         }
         uci set ota.config.api_url="$OTA_URL"
         uci commit ota
         ;;
     netgear,r8500)
         [ ! -d "/usr/share/openwrt_core" ] && {
+            [ "$kernel_version" = "6.11" ] && openwrt_core="openwrt_core/arm_cortex-a9" || openwrt_core="kmod-bcm53xx/main"
             sed -i '/openwrt_core/d' /etc/opkg/distfeeds.conf
-            sed -i "\$a\src/gz openwrt_core https://ghp.ci/raw.githubusercontent.com/sbwml/kmod-bcm53xx/main/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
+            sed -i "\$a\src/gz openwrt_core https://ghp.ci/raw.githubusercontent.com/sbwml/${openwrt_core}/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
         }
         uci set ota.config.api_url="$OTA_URL"
         uci commit ota
@@ -91,8 +97,9 @@ devices_setup()
     x86_64)
         [ $(uname -r | awk -F. '{print $1}') = 6 ] && {
             [ -f /sys/kernel/btf/vmlinux ] && [ ! -d "/usr/share/openwrt_core" ] && {
+                [ "$kernel_version" = "6.11" ] && openwrt_core="openwrt_core/x86_64" || openwrt_core="kmod-x86_64/main"
                 sed -i '/openwrt_core/d' /etc/opkg/distfeeds.conf
-                sed -i "\$a\src/gz openwrt_core https://ghp.ci/raw.githubusercontent.com/sbwml/kmod-x86_64/main/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
+                sed -i "\$a\src/gz openwrt_core https://ghp.ci/raw.githubusercontent.com/sbwml/${openwrt_core}/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
             }
         }
         uci set ota.config.api_url="$OTA_URL"
