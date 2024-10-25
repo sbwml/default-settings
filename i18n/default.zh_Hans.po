@@ -127,6 +127,15 @@ msgstr "IPv6 网络地址转换（NAT6）"
 msgid "Applicable to internet environments where the router is not assigned an IPv6 prefix, such as when using an upstream optical modem for dial-up."
 msgstr "适用于没有给路由分配 IPv6 前缀的上网环境，例如：上级光猫拨号"
 
+msgid "Flow offloading type"
+msgstr "流量分载类型"
+
+msgid "Software based offloading for routing/NAT."
+msgstr "基于软件的 路由/NAT 分载。"
+
+msgid "Hardware based offloading for routing with/without NAT."
+msgstr "基于硬件的 路由/NAT 分载。"
+
 msgid "Shortcut-FE flow offloading"
 msgstr "Shortcut-FE 流量分载"
 
