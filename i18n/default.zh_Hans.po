@@ -121,6 +121,21 @@ msgstr "博通全锥型 NAT 方案"
 msgid "Use the Broadcom FullCone NAT scheme if enabled, and use the NFT FullCone scheme if the option is disabled."
 msgstr "启用该选项时使用 Broadcom FullCone NAT 方案，禁用该选项时则使用 nft-fullcone 方案"
 
+msgid "Full Cone NAT"
+msgstr "全锥形 NAT"
+
+msgid "Nftables Fullcone nat"
+msgstr "Nftables 全锥形 NAT"
+
+msgid "Nftables based fullcone nat scheme."
+msgstr "基于 Nftables 的全锥形 NAT 方案。"
+
+msgid "Broadcom Fullcone nat"
+msgstr "Broadcom 全锥形 NAT"
+
+msgid "Broadcom based fullcone nat scheme."
+msgstr "基于博通的全锥型 NAT 方案。"
+
 msgid "IPv6 NAT"
 msgstr "IPv6 网络地址转换（NAT6）"
 
