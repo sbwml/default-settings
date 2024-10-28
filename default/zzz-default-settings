@@ -14,7 +14,6 @@ else
 fi
 
 kernel_version=$(uname -r | awk -F '[.-]' '{print $1"."$2}')
-[ "$kernel_version" = "6.12" ] && OTA_URL="https://api.cooluc.com/openwrt/ota_test.json"
 
 devices_setup()
 {
