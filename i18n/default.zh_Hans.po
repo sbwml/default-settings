@@ -1,41 +1,5 @@
-msgid "Processor"
-msgstr "处理器"
-
-msgid "Architecture"
-msgstr "架构"
-
-msgid "Target Platform"
-msgstr "目标平台"
-
-msgid "CPU Temperature"
-msgstr "CPU 温度"
-
-msgid "CPU Info"
-msgstr "CPU 信息"
-
-msgid "CPU Model"
-msgstr "处理器型号"
-
-msgid "CPU frequency"
-msgstr "CPU 频率"
-
 msgid "CPU usage"
 msgstr "CPU 使用率"
-
-msgid "RAM frequency"
-msgstr "RAM 频率"
-
-msgid "Flash Size"
-msgstr "闪存大小"
-
-msgid "Free Memory"
-msgstr "释放内存"
-
-msgid "RUNNING"
-msgstr "运行中"
-
-msgid "NOT RUNNING"
-msgstr "未运行"
 
 msgid "Confirm Reboot"
 msgstr "确认重启"
