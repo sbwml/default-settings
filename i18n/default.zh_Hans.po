@@ -76,6 +76,9 @@ msgstr "HOSTS 和解析文件"
 msgid "PXE/TFTP Settings"
 msgstr "PXE/TFTP 设置"
 
+msgid "Use as docker root directory (/opt)"
+msgstr "作为 docker 根目录使用（/opt）"
+
 msgid "Enable FullCone NAT"
 msgstr "全锥形 NAT"
 
