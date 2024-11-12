@@ -13,15 +13,13 @@ else
     OTA_URL="https://api.cooluc.com/openwrt/ota.json"
 fi
 
-kernel_version=$(uname -r | awk -F '[.-]' '{print $1"."$2}')
-
 devices_setup()
 {
     case "$(board_name)" in
     armsr,armv8)
         [ $(uname -r | awk -F. '{print $1}') = 6 ] && {
             [ ! -d "/usr/share/openwrt_core" ] && {
-                [ "$kernel_version" = "6.12" ] && openwrt_core="openwrt_core/armsr-armv8" || openwrt_core="kmod-armsr-armv8/main"
+                openwrt_core="openwrt_core/armsr-armv8"
                 sed -i '/openwrt_core/d' /etc/opkg/distfeeds.conf
                 sed -i "\$a\src/gz openwrt_core https://ghp.ci/raw.githubusercontent.com/sbwml/${openwrt_core}/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
             }
@@ -36,7 +34,7 @@ devices_setup()
         uci commit irqbalance
         service irqbalance stop
         [ ! -d "/usr/share/openwrt_core" ] && {
-            [ "$kernel_version" = "6.12" ] && openwrt_core="openwrt_core/aarch64_generic" || openwrt_core="kmod-aarch64/main"
+            openwrt_core="openwrt_core/aarch64_generic"
             sed -i '/openwrt_core/d' /etc/opkg/distfeeds.conf
             sed -i "\$a\src/gz openwrt_core https://ghp.ci/raw.githubusercontent.com/sbwml/${openwrt_core}/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
         }
@@ -45,7 +43,7 @@ devices_setup()
         ;;
     netgear,r8500)
         [ ! -d "/usr/share/openwrt_core" ] && {
-            [ "$kernel_version" = "6.12" ] && openwrt_core="openwrt_core/arm_cortex-a9" || openwrt_core="kmod-bcm53xx/main"
+            openwrt_core="openwrt_core/arm_cortex-a9"
             sed -i '/openwrt_core/d' /etc/opkg/distfeeds.conf
             sed -i "\$a\src/gz openwrt_core https://ghp.ci/raw.githubusercontent.com/sbwml/${openwrt_core}/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
         }
@@ -96,7 +94,7 @@ devices_setup()
     x86_64)
         [ $(uname -r | awk -F. '{print $1}') = 6 ] && {
             [ -f /sys/kernel/btf/vmlinux ] && [ ! -d "/usr/share/openwrt_core" ] && {
-                [ "$kernel_version" = "6.12" ] && openwrt_core="openwrt_core/x86_64" || openwrt_core="kmod-x86_64/main"
+                openwrt_core="openwrt_core/x86_64"
                 sed -i '/openwrt_core/d' /etc/opkg/distfeeds.conf
                 sed -i "\$a\src/gz openwrt_core https://ghp.ci/raw.githubusercontent.com/sbwml/${openwrt_core}/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
             }
@@ -177,7 +175,7 @@ fi
 # packet steering
 uci -q get network.globals.packet_steering > /dev/null || {
     uci set network.globals='globals'
-    [ "${VERSION%.*}" = 23 ] && uci set network.globals.packet_steering=1 || uci set network.globals.packet_steering=2
+    uci set network.globals.packet_steering=2
     uci set network.globals.steering_flows='128'
     uci commit network
 }
