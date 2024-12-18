@@ -43,6 +43,9 @@ msgstr "作为 docker 根目录使用（/opt）"
 msgid "Full Cone NAT"
 msgstr "全锥形 NAT"
 
+msgid "Full Cone NAT6"
+msgstr "全锥形 NAT6"
+
 msgid "Disable"
 msgstr "禁用"
 
