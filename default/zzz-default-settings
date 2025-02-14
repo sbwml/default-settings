@@ -74,7 +74,7 @@ devices_setup()
             uci -q set wireless.wifinet1.encryption='none'
             uci -q set wireless.wifinet1.network='lan'
             uci -q set wireless.radio1.htmode='HT40'
-            uci -q set wireless.radio1.channel='1'
+            uci -q set wireless.radio1.channel='9'
             uci -q set wireless.radio1.country='AU'
             uci -q set wireless.radio1.cell_density='3'
             uci -q del wireless.radio1.disabled
