@@ -90,6 +90,34 @@ devices_setup()
             /sbin/wifi >/dev/null 2>&1
         }
         ;;
+    xiaomi,redmi-router-ax6000-stock)
+        [ -f "/etc/config/wireless" ] && [ $(grep -c "default_radio" /etc/config/wireless) -ge '1' ] && {
+            uci -q del wireless.default_radio0
+            uci -q del wireless.default_radio1
+            uci -q del wireless.radio0.disabled
+            uci -q del wireless.radio1.disabled
+            uci -q set wireless.wifinet0=wifi-iface
+            uci -q set wireless.wifinet0.device='radio0'
+            uci -q set wireless.wifinet0.mode='ap'
+            uci -q set wireless.wifinet0.ssid='Redmi_AX6000_2.4GHz'
+            uci -q set wireless.wifinet0.encryption='none'
+            uci -q set wireless.wifinet0.network='lan'
+            uci -q set wireless.radio0.htmode='HE40'
+            uci -q set wireless.radio0.channel='10'
+            uci -q set wireless.radio0.country='AU'
+            uci -q set wireless.radio0.cell_density='3'
+            uci -q set wireless.radio1.country='AU'
+            uci -q set wireless.radio1.cell_density='3'
+            uci -q set wireless.wifinet1=wifi-iface
+            uci -q set wireless.wifinet1.device='radio1'
+            uci -q set wireless.wifinet1.mode='ap'
+            uci -q set wireless.wifinet1.ssid='Redmi_AX6000_5GHz'
+            uci -q set wireless.wifinet1.encryption='none'
+            uci -q set wireless.wifinet1.network='lan'
+            uci commit wireless
+            /sbin/wifi >/dev/null 2>&1
+        }
+        ;;
     x86_64)
         [ $(uname -r | awk -F. '{print $1}') = 6 ] && {
             [ -f /sys/kernel/btf/vmlinux ] && [ ! -d "/usr/share/openwrt_core" ] && {
