@@ -90,7 +90,9 @@ devices_setup()
             /sbin/wifi >/dev/null 2>&1
         }
         ;;
-    xiaomi,redmi-router-ax6000-stock)
+    xiaomi,redmi-router-ax6000|\
+    xiaomi,redmi-router-ax6000-stock|\
+    xiaomi,redmi-router-ax6000-ubootmod)
         [ -f "/etc/config/wireless" ] && [ $(grep -c "default_radio" /etc/config/wireless) -ge '1' ] && {
             uci -q del wireless.default_radio0
             uci -q del wireless.default_radio1
