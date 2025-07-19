@@ -29,7 +29,8 @@ devices_setup()
         ;;
     friendlyarm,nanopi-r4s|\
     friendlyarm,nanopi-r5c|\
-    friendlyarm,nanopi-r5s)
+    friendlyarm,nanopi-r5s|\
+    friendlyarm,nanopi-r76s)
         uci set irqbalance.irqbalance.enabled='0'
         uci commit irqbalance
         service irqbalance stop
