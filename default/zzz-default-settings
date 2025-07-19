@@ -48,7 +48,6 @@ devices_setup()
         }
         uci set ota.config.api_url="$OTA_URL"
         uci commit ota
-        }
         ;;
     x86_64)
         [ $(uname -r | awk -F. '{print $1}') = 6 ] && {
