@@ -99,3 +99,6 @@ msgstr "前缀优先时间上限"
 
 msgid "Max valid lifetime"
 msgstr "前缀有效时间上限"
+
+msgid "Contact Us"
+msgstr "联系我们"
