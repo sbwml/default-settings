@@ -44,8 +44,9 @@ devices_setup()
     x86_64)
         [ $(uname -r | awk -F. '{print $1}') = 6 ] && {
             [ -f /sys/kernel/btf/vmlinux ] && [ ! -d "/usr/share/openwrt_core" ] && {
+                openwrt_core="openwrt_core/x86_64"
                 sed -i '/openwrt_core/d' /etc/opkg/distfeeds.conf
-                sed -i "\$a\src/gz openwrt_core https://core.cooluc.com/x86_64/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
+                sed -i "\$a\src/gz openwrt_core https://raw.githubusercontent.com/sbwml/${openwrt_core}/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
             }
         }
         uci set ota.config.api_url="$OTA_URL"
