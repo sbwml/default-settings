@@ -13,11 +13,13 @@ else
     OTA_URL="https://api.cooluc.com/openwrt/ota.json"
 fi
 
+kernel_version=$(uname -r | sed 's/-.*//' | cut -d. -f1-2)
+
 devices_setup()
 {
     case "$(board_name)" in
     armsr,armv8)
-        [ $(uname -r | awk -F. '{print $1}') = 6 ] && {
+        if [ "$kernel_version" = "6.12" ]; then
             [ ! -d "/usr/share/openwrt_core" ] && {
                 openwrt_core="openwrt_core/armsr-armv8"
                 sed -i '/openwrt_core/d' /etc/opkg/distfeeds.conf
@@ -25,7 +27,15 @@ devices_setup()
             }
             uci set ota.config.api_url="$OTA_URL"
             uci commit ota
-        }
+        elif [ "$kernel_version" = "6.18" ]; then
+            [ ! -d "/usr/share/openwrt_core" ] && {
+                openwrt_core="openwrt_core_dev/armsr-armv8"
+                sed -i '/openwrt_core/d' /etc/opkg/distfeeds.conf
+                sed -i "\$a\src/gz openwrt_core https://raw.githubusercontent.com/sbwml/${openwrt_core}/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
+            }
+            uci set ota.config.api_url="$OTA_URL"
+            uci commit ota
+        fi
         ;;
     friendlyarm,nanopi-r4s|\
     friendlyarm,nanopi-r5c|\
@@ -34,21 +44,36 @@ devices_setup()
         uci set irqbalance.irqbalance.enabled='0'
         uci commit irqbalance
         service irqbalance stop
-        [ ! -d "/usr/share/openwrt_core" ] && {
-            sed -i '/openwrt_core/d' /etc/opkg/distfeeds.conf
-            sed -i "\$a\src/gz openwrt_core https://core.cooluc.com/aarch64_generic/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
-        }
-        uci set ota.config.api_url="$OTA_URL"
-        uci commit ota
+        if [ "$kernel_version" = "6.12" ]; then
+            [ ! -d "/usr/share/openwrt_core" ] && {
+                sed -i '/openwrt_core/d' /etc/opkg/distfeeds.conf
+                sed -i "\$a\src/gz openwrt_core https://core.cooluc.com/aarch64_generic/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
+            }
+            uci set ota.config.api_url="$OTA_URL"
+            uci commit ota
+        elif [ "$kernel_version" = "6.18" ]; then
+            [ ! -d "/usr/share/openwrt_core" ] && {
+                sed -i '/openwrt_core/d' /etc/opkg/distfeeds.conf
+                sed -i "\$a\src/gz openwrt_core https://core2.cooluc.com/aarch64_generic/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
+            }
+            uci set ota.config.api_url="$OTA_URL"
+            uci commit ota
+        fi
         ;;
     x86_64)
-        [ $(uname -r | awk -F. '{print $1}') = 6 ] && {
+        if [ "$kernel_version" = "6.12" ]; then
             [ -f /sys/kernel/btf/vmlinux ] && [ ! -d "/usr/share/openwrt_core" ] && {
                 openwrt_core="openwrt_core/x86_64"
                 sed -i '/openwrt_core/d' /etc/opkg/distfeeds.conf
                 sed -i "\$a\src/gz openwrt_core https://raw.githubusercontent.com/sbwml/${openwrt_core}/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
             }
-        }
+        elif [ "$kernel_version" = "6.18" ]; then
+            [ -f /sys/kernel/btf/vmlinux ] && [ ! -d "/usr/share/openwrt_core" ] && {
+                openwrt_core="openwrt_core_dev/x86_64"
+                sed -i '/openwrt_core/d' /etc/opkg/distfeeds.conf
+                sed -i "\$a\src/gz openwrt_core https://raw.githubusercontent.com/sbwml/${openwrt_core}/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
+            }
+        fi
         uci set ota.config.api_url="$OTA_URL"
         uci commit ota
         ;;
@@ -74,7 +99,7 @@ uci commit system
 
 # zram
 mem_total=$(grep MemTotal /proc/meminfo | awk '{print $2}')
-zram_size=$(echo | awk "{print int($mem_total*0.25/1024)}")
+zram_size=$(awk "BEGIN {print int($mem_total*0.25/1024)}")
 uci set system.@system[0].zram_size_mb="$zram_size"
 uci set system.@system[0].zram_comp_algo='lz4'
 uci commit system
@@ -112,7 +137,7 @@ fi
 
 # firewall
 [ $(grep -c shortcut_fe /etc/config/firewall) -eq '0' ] && uci set firewall.@defaults[0].flow_offloading='1'
-if [ $(ifconfig -a | grep -o '^eth[^ ]*' | wc -l) -le 1 ] || [ "$OPENWRT_BOARD" = "armsr/armv8" ]; then
+if [ "$(ip link show | grep -c '^.*: eth')" -le 1 ] || [ "$OPENWRT_BOARD" = "armsr/armv8" ]; then
     uci set firewall.@zone[1].input='ACCEPT'
 fi
 uci set firewall.@defaults[0].input='ACCEPT'
