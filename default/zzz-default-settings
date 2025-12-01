@@ -153,7 +153,6 @@ fi
 
 # packet steering
 case "$(board_name)" in
-friendlyarm,nanopi-r4s|\
 friendlyarm,nanopi-r76s)
     uci set network.globals.packet_steering='0'
     ;;
