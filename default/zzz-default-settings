@@ -8,9 +8,9 @@
 
 # OTA
 if [ "$VERSION_TYPE" = "minimal" ]; then
-    OTA_URL="https://api.cooluc.com/openwrt/ota_minimal.json"
+    OTA_URL="https://api.cooluc.com/openwrt/ota/openwrt-25.12-minimal.json"
 else
-    OTA_URL="https://api.cooluc.com/openwrt/ota.json"
+    OTA_URL="https://api.cooluc.com/openwrt/ota/openwrt-25.12.json"
 fi
 
 kernel_version=$(uname -r | sed 's/-.*//' | cut -d. -f1-2)
@@ -19,19 +19,11 @@ devices_setup()
 {
     case "$(board_name)" in
     armsr,armv8)
-        if [ "$kernel_version" = "6.12" ]; then
+        if [ "$kernel_version" = "6.18" ]; then
             [ ! -d "/usr/share/openwrt_core" ] && {
-                openwrt_core="openwrt_core/armsr-armv8"
-                sed -i '/openwrt_core/d' /etc/opkg/distfeeds.conf
-                sed -i "\$a\src/gz openwrt_core https://raw.githubusercontent.com/sbwml/${openwrt_core}/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
-            }
-            uci set ota.config.api_url="$OTA_URL"
-            uci commit ota
-        elif [ "$kernel_version" = "6.18" ]; then
-            [ ! -d "/usr/share/openwrt_core" ] && {
-                openwrt_core="openwrt_core2/armsr-armv8"
-                sed -i '/openwrt_core/d' /etc/opkg/distfeeds.conf
-                sed -i "\$a\src/gz openwrt_core https://raw.githubusercontent.com/sbwml/${openwrt_core}/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
+                openwrt_core="openwrt_core3/armsr-armv8"
+                sed -i '/targets/d' /etc/apk/repositories.d/distfeeds.list
+                echo "https://raw.githubusercontent.com/sbwml/${openwrt_core}/$(grep kernel /etc/apk/world | awk -F= '{print $2}')/packages.adb" >> /etc/apk/repositories.d/distfeeds.list
             }
             uci set ota.config.api_url="$OTA_URL"
             uci commit ota
@@ -44,33 +36,20 @@ devices_setup()
         uci set irqbalance.irqbalance.enabled='0'
         uci commit irqbalance
         service irqbalance stop
-        if [ "$kernel_version" = "6.12" ]; then
+        if [ "$kernel_version" = "6.18" ]; then
             [ ! -d "/usr/share/openwrt_core" ] && {
-                sed -i '/openwrt_core/d' /etc/opkg/distfeeds.conf
-                sed -i "\$a\src/gz openwrt_core https://core.cooluc.com/aarch64_generic/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
-            }
-            uci set ota.config.api_url="$OTA_URL"
-            uci commit ota
-        elif [ "$kernel_version" = "6.18" ]; then
-            [ ! -d "/usr/share/openwrt_core" ] && {
-                sed -i '/openwrt_core/d' /etc/opkg/distfeeds.conf
-                sed -i "\$a\src/gz openwrt_core https://core2.cooluc.com/aarch64_generic/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
+                sed -i '/targets/d' /etc/apk/repositories.d/distfeeds.list
+                echo "https://core3.cooluc.com/aarch64_generic/$(grep kernel /etc/apk/world | awk -F= '{print $2}')/packages.adb" >> /etc/apk/repositories.d/distfeeds.list
             }
             uci set ota.config.api_url="$OTA_URL"
             uci commit ota
         fi
         ;;
     x86_64)
-        if [ "$kernel_version" = "6.12" ]; then
-            [ -f /sys/kernel/btf/vmlinux ] && [ ! -d "/usr/share/openwrt_core" ] && {
-                openwrt_core="openwrt_core/x86_64"
-                sed -i '/openwrt_core/d' /etc/opkg/distfeeds.conf
-                sed -i "\$a\src/gz openwrt_core https://raw.githubusercontent.com/sbwml/${openwrt_core}/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
-            }
-        elif [ "$kernel_version" = "6.18" ]; then
-            [ -f /sys/kernel/btf/vmlinux ] && [ ! -d "/usr/share/openwrt_core" ] && {
-                sed -i '/openwrt_core/d' /etc/opkg/distfeeds.conf
-                sed -i "\$a\src/gz openwrt_core https://core2.cooluc.com/x86_64/$(grep Version /usr/lib/opkg/info/kernel.control | awk '{print $2}')" /etc/opkg/distfeeds.conf
+        if [ "$kernel_version" = "6.18" ]; then
+            [ ! -d "/usr/share/openwrt_core" ] && {
+                sed -i '/targets/d' /etc/apk/repositories.d/distfeeds.list
+                echo "https://core3.cooluc.com/x86_64/$(grep kernel /etc/apk/world | awk -F= '{print $2}')/packages.adb" >> /etc/apk/repositories.d/distfeeds.list
             }
         fi
         uci set ota.config.api_url="$OTA_URL"
@@ -104,14 +83,10 @@ uci set system.@system[0].zram_comp_algo='lz4'
 uci commit system
 
 # opkg mirror
-if [ $(grep -c SNAPSHOT /etc/opkg/distfeeds.conf) -eq '0' ]; then
-    sed -i 's,downloads.openwrt.org,mirrors.aliyun.com/openwrt,g' /etc/opkg/distfeeds.conf
-else
-    sed -i 's,downloads.openwrt.org,mirrors.pku.edu.cn/openwrt,g' /etc/opkg/distfeeds.conf
-fi
+sed -i 's,downloads.openwrt.org,mirrors.pku.edu.cn/openwrt,g' /etc/apk/repositories.d/distfeeds.list
 
 # extra packages
-echo "src/gz openwrt_extras https://opkg.cooluc.com/openwrt-24.10/$(. /etc/openwrt_release ; echo $DISTRIB_ARCH)" >> /etc/opkg/distfeeds.conf
+echo "https://opkg.cooluc.com/openwrt-25.12/$(cat /etc/apk/arch)/packages.adb" >> /etc/apk/repositories.d/distfeeds.list
 
 # nginx
 uci set nginx.global.uci_enable='true'
