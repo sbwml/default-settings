@@ -8,9 +8,9 @@
 
 # OTA
 if [ "$VERSION_TYPE" = "minimal" ]; then
-    OTA_URL="https://api.cooluc.com/openwrt/ota/openwrt-25.12-minimal.json"
+    OTA_URL="https://api.cooluc.com/ota/openwrt-25.12-minimal.json"
 else
-    OTA_URL="https://api.cooluc.com/openwrt/ota/openwrt-25.12.json"
+    OTA_URL="https://api.cooluc.com/ota/openwrt-25.12.json"
 fi
 
 kernel_version=$(uname -r | sed 's/-.*//' | cut -d. -f1-2)
