@@ -7,11 +7,18 @@
 [ "$OPENWRT_BOARD" = "armsr/armv8" ] && alias board_name="echo armsr,armv8"
 
 # OTA
-if [ "$VERSION_TYPE" = "minimal" ]; then
-    OTA_URL="https://api.cooluc.com/ota/openwrt-25.12-minimal.json"
-else
-    OTA_URL="https://api.cooluc.com/ota/openwrt-25.12.json"
-fi
+case "$VERSION_TYPE" in
+  minimal)
+    suffix="-minimal"
+    ;;
+  standard)
+    suffix="-standard"
+    ;;
+  *)
+    suffix=""
+    ;;
+esac
+OTA_URL="https://api.cooluc.com/ota/openwrt-25.12${suffix}.json"
 
 kernel_version=$(uname -r | sed 's/-.*//' | cut -d. -f1-2)
 
