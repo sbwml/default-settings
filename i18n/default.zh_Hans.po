@@ -93,31 +93,3 @@ msgstr "设置 Natflow 延迟数据包"
 
 msgid "Custom rules allow you to execute arbitrary nft commands which are not otherwise covered by the firewall framework. The rules are executed after each firewall restart, right after the default ruleset has been loaded."
 msgstr "自定义规则允许您执行不属于防火墙框架的任意 nft 命令。每次重启防火墙时，这些命令在默认的规则运行后立即执行。"
-
-msgid "Units: milliseconds. 0 means unspecified."
-msgstr "单位：毫秒。0 表示未指定。"
-
-msgid ""
-"Dictates how long a node assumes a neighbor is reachable after a "
-"reachability confirmation; published in <abbr title=\"Router "
-"Advertisement\">RA</abbr> messages."
-msgstr ""
-"规定节点在确认邻居可达后，假定其保持可达状态的持续时间；通过 <abbr title="
-"\"Router Advertisement\">RA</abbr> 消息发布。"
-
-msgid ""
-"Dictates how long a node assumes a neighbor is reachable after a "
-"reachability confirmation; published in <abbr title=\"Router "
-"Advertisement\">RA</abbr> messages."
-msgstr ""
-"规定节点在确认邻居可达后，假定其保持可达状态的持续时间；通过 <abbr title="
-"\"Router Advertisement\">RA</abbr> 消息发布。"
-
-msgid "<abbr title=\"Router Advertisement\">RA</abbr> Retransmission Timer"
-msgstr "<abbr title=\"Router Advertisement\">RA</abbr> 重传定时器"
-
-msgid ""
-"Controls retransmitted Neighbor Solicitation messages; published in <abbr "
-"title=\"Router Advertisement\">RA</abbr> messages."
-msgstr "控制重传的邻居请求消息；在 <abbr title=\"Router Advertisement\">路由通告</abb"
-"r>消息中发布。"
