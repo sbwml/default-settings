@@ -149,6 +149,12 @@ friendlyarm,nanopi-r76s)
 esac
 uci commit network
 
+# netifd
+if uci -q get network.wan6 >/dev/null; then
+    uci set network.wan6.reqaddress='force'
+    uci commit network
+fi
+
 # disable coremark
 sed -i '/coremark/d' /etc/crontabs/root
 crontab /etc/crontabs/root
