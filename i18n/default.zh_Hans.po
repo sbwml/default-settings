@@ -1,6 +1,21 @@
 msgid "CPU usage"
 msgstr "CPU 使用率"
 
+msgid "Network Speed"
+msgstr "网络速率"
+
+msgid "Download Rate (RX)"
+msgstr "下行速率 (RX)"
+
+msgid "Upload Rate (TX)"
+msgstr "上行速率 (TX)"
+
+msgid "Calculating..."
+msgstr "计算中..."
+
+msgid "No active network interfaces"
+msgstr "无活动的网络接口"
+
 msgid "Confirm Reboot"
 msgstr "确认重启"
 
