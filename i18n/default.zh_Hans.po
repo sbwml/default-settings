@@ -5,10 +5,10 @@ msgid "Network Speed"
 msgstr "网络速率"
 
 msgid "Download Rate (RX)"
-msgstr "下行速率 (RX)"
+msgstr "下行速率"
 
 msgid "Upload Rate (TX)"
-msgstr "上行速率 (TX)"
+msgstr "上行速率"
 
 msgid "Calculating..."
 msgstr "计算中..."
