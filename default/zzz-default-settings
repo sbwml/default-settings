@@ -156,4 +156,7 @@ crontab /etc/crontabs/root
 # init
 devices_setup
 
+# clean
+rm -rf /etc/profile.d/busybox-history-file.sh
+
 exit 0
