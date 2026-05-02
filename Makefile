@@ -23,14 +23,8 @@ define Package/default-settings
   PKGARCH:=all
   DEPENDS:= \
 	+luci-base \
-	+luci-lib-ip \
-	+luci-lib-ipkg \
-	+luci-lib-ipkg \
-	+luci-lib-jsonc \
-	+luci-lib-nixio \
 	+luci-proto-ipv6 \
 	+bash \
-	+kmod-nft-fullcone \
 	+zoneinfo-asia \
 	+@LUCI_LANG_zh_Hans
 endef
