@@ -30,7 +30,7 @@ devices_setup()
             [ ! -d "/usr/share/openwrt_core" ] && {
                 openwrt_core="openwrt_core3/armsr-armv8"
                 sed -i '/targets/d' /etc/apk/repositories.d/distfeeds.list
-                echo "https://raw.githubusercontent.com/sbwml/${openwrt_core}/$(grep kernel /etc/apk/world | awk -F= '{print $2}')/packages.adb" >> /etc/apk/repositories.d/distfeeds.list
+                echo "https://core.cooluc.com/25.12/targets/armsr/armv8/$(grep kernel /etc/apk/world | awk -F= '{print $2}')/packages.adb" >> /etc/apk/repositories.d/distfeeds.list
             }
             uci set ota.config.api_url="$OTA_URL"
             uci commit ota
@@ -46,7 +46,7 @@ devices_setup()
         if [ "$kernel_version" = "6.18" ]; then
             [ ! -d "/usr/share/openwrt_core" ] && {
                 sed -i '/targets/d' /etc/apk/repositories.d/distfeeds.list
-                echo "https://core3.cooluc.com/aarch64_generic/$(grep kernel /etc/apk/world | awk -F= '{print $2}')/packages.adb" >> /etc/apk/repositories.d/distfeeds.list
+                echo "https://core.cooluc.com/25.12/targets/rockchip/armv8/$(grep kernel /etc/apk/world | awk -F= '{print $2}')/packages.adb" >> /etc/apk/repositories.d/distfeeds.list
             }
             uci set ota.config.api_url="$OTA_URL"
             uci commit ota
@@ -56,7 +56,7 @@ devices_setup()
         if [ "$kernel_version" = "6.18" ]; then
             [ ! -d "/usr/share/openwrt_core" ] && {
                 sed -i '/targets/d' /etc/apk/repositories.d/distfeeds.list
-                echo "https://core3.cooluc.com/x86_64/$(grep kernel /etc/apk/world | awk -F= '{print $2}')/packages.adb" >> /etc/apk/repositories.d/distfeeds.list
+                echo "https://core.cooluc.com/25.12/targets/x86/64/$(grep kernel /etc/apk/world | awk -F= '{print $2}')/packages.adb" >> /etc/apk/repositories.d/distfeeds.list
             }
         fi
         uci set ota.config.api_url="$OTA_URL"
